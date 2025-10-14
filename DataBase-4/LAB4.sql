@@ -9,7 +9,7 @@ CREATE TABLE employees (
   department VARCHAR(50),
   salary NUMERIC(10,2),
   hire_date DATE,
-  manager_id INTEGER,
+  manager_id INT,
   email VARCHAR(100)
 );
 
@@ -24,8 +24,8 @@ CREATE TABLE projects (
 
 CREATE TABLE assignments (
   assignment_id SERIAL PRIMARY KEY,
-  employee_id INTEGER REFERENCES employees(employee_id),
-  project_id INTEGER REFERENCES projects(project_id),
+  employee_id INT REFERENCES employees(employee_id),
+  project_id INT REFERENCES projects(project_id),
   hours_worked NUMERIC(5,1),
   assignment_date DATE
 );
@@ -297,3 +297,56 @@ FROM (
   GROUP BY department
 ) d
 ORDER BY d.department;
+
+--TASKS
+
+CREATE TABLE books(
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(50),
+    author VARCHAR(50),
+    publisher VARCHAR(50),
+    price INT,
+    publication_year DATE,
+    stock_quantity INT,
+    category VARCHAR(50)
+);
+
+CREATE TABLE customers(
+    customer_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(50),
+    email VARCHAR(50),
+    registration_date DATE,
+    city VARCHAR(50),
+    total_purchases INT
+);
+
+DROP TABLE IF EXISTS orders;
+
+CREATE TABLE orders(
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES customers(customer_id),
+    book_id INT REFERENCES books(book_id),
+    order_date DATE,
+    quantity INT,
+    discount_percent INT
+);
+
+
+--Part A
+--Task A1
+
+SELECT
+  LENGTH(title)< 20 AS title,
+  UPPER(author) AS author_upper,
+  replace(publisher,' ','-') AS publisher
+
+
+--   LENGTH(last_name) AS last_name_length,
+--   CASE WHEN email IS NULL THEN NULL ELSE LEFT(email, 3) END AS email_first3
+FROM books;
+
+--Task A2
+
+
+
+
